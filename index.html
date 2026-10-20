@@ -498,10 +498,22 @@
         }
         .btn-warn:hover { background: #b45309; border-color: #b45309; }
 
-        /* Action row (share/copy/today) */
+        /* Action row (share/copy/today/AI) */
         .action-row {
             display: flex; flex-wrap: wrap; gap: 10px;
             justify-content: center; padding-top: 4px;
+        }
+        .action-row .btn {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+        .edit-actions {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            justify-content: center; margin-top: 12px;
+        }
+        .edit-actions .btn {
+            flex: 1 1 auto;
+            min-width: 0;
         }
 
         /* ---------- Bottom toolbar (Backup / Restore / Reset) ---------- */
@@ -695,10 +707,95 @@
             .app-header { padding: 12px 14px 14px; padding-top: max(12px, env(safe-area-inset-top)); }
             .content-area { padding: 4px 14px 8px; }
             .date-nav { padding: 14px 14px 10px; }
-            .toolbar { margin: 4px 14px 0; }
+            .toolbar { margin: 4px 14px 0; padding: 10px; gap: 8px; }
             .brand-title { font-size: 1.1rem; }
             .verse-text { font-size: 1.05rem; }
             .card { padding: 18px 16px; }
+
+            /* Buttons & features — readable on mobile */
+            .btn {
+                font-size: 12.5px;
+                padding: 12px 12px;
+                min-height: 48px;
+                gap: 5px;
+            }
+            .action-row {
+                gap: 8px;
+                padding: 6px 0 2px;
+            }
+            .action-row .btn {
+                flex: 1 1 calc(50% - 8px);
+                min-width: calc(50% - 8px);
+                max-width: 100%;
+            }
+            .edit-actions {
+                gap: 8px;
+                flex-direction: column;
+            }
+            .edit-actions .btn {
+                width: 100%;
+                min-height: 48px;
+            }
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .toolbar-label {
+                font-size: 10.5px;
+                margin-bottom: 2px;
+            }
+            .toolbar-btns {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                width: 100%;
+            }
+            .tb-btn {
+                flex: 1 1 calc(33.33% - 8px);
+                min-width: 0;
+                padding: 11px 8px;
+                font-size: 11.5px;
+                justify-content: center;
+                min-height: 44px;
+            }
+            .hdr-btn {
+                padding: 8px 10px;
+                font-size: 11.5px;
+                min-height: 40px;
+            }
+            .hdr-btn.icon-only {
+                width: 40px; height: 40px;
+                font-size: 16px;
+            }
+            .date-arrow {
+                width: 42px; height: 42px;
+                font-size: 16px;
+            }
+            .date-display { font-size: 0.98rem; }
+            input[type="date"] {
+                font-size: 13px;
+                min-height: 40px;
+                padding: 8px 10px;
+            }
+            .devotion-title { font-size: 1.18rem; }
+            .devotion-body, .prayer-body { font-size: 0.94rem; line-height: 1.8; }
+            .prayer-title { font-size: 1.05rem; }
+            .card-label { font-size: 10px; }
+        }
+
+        @media (max-width: 360px) {
+            .action-row .btn {
+                flex: 1 1 100%;
+                min-width: 100%;
+            }
+            .tb-btn {
+                flex: 1 1 calc(50% - 8px);
+                font-size: 11px;
+                padding: 10px 6px;
+            }
+            .brand-title { font-size: 1rem; }
+            .brand-sub { font-size: 10px; }
+            .logo-container { width: 44px; height: 44px; }
         }
 
         /* ---------- Share Sheet ---------- */
@@ -1777,7 +1874,7 @@
         <footer class="app-footer">
             <p><img class="footer-logo" src="data:image/png;base64,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" alt="రెఫీదీము సహవాసము" /> రెఫీదీము సహవాసము · అనుదిన ధ్యానం</p>
             <p class="mt-0.5">దేవుడు మిమ్ములను దీవించు గాక · <span class="footer-mark">Daily Devotion</span></p>
-            <p class="footer-credit">సహో: నవిన్ కుమార్</p>
+            <p class="footer-credit">మీ సహో: నవీన్ కుమార్</p>
         </footer>
     </div>
 
@@ -2390,6 +2487,270 @@
         }
 
         // ========================================================================
+        //  AI REFLECTION & PRAYER (client-side biblical generator)
+        // ========================================================================
+        // Takes the current verse and produces:
+        //   • 2–3 lines of biblical reflection in Telugu
+        //   • 1-line prayer derived from that reflection, always ending with
+        //     "యేసు నామములో ప్రార్థిస్తున్నాను తండ్రి - ఆమెన్"
+        // Does not alter any other app behaviour.
+
+        function _aiKeywordTheme(verse, ref) {
+            const t = (verse + ' ' + (ref || '')).toLowerCase();
+            if (/ప్రేమ|love|ప్రియ/.test(t)) return 'love';
+            if (/భయ|fear|ధైర్య|courage|బల/.test(t)) return 'courage';
+            if (/నమ్మ|trust|విశ్వాస|faith|నమ్మక/.test(t)) return 'faith';
+            if (/ప్రార్థ|prayer|వేడుకొ|యాచ/.test(t)) return 'prayer';
+            if (/వాక్య|word|బైబిల్|scripture|దీప|వెలుగు/.test(t)) return 'word';
+            if (/కాపరి|shepherd|కాపాడ|protect|సహాయ/.test(t)) return 'shepherd';
+            if (/నిరీక్ష|hope|భవిష్య|future|ప్రణాళిక/.test(t)) return 'hope';
+            if (/కృప|grace|క్షమ|mercy|కరుణ/.test(t)) return 'grace';
+            if (/శాంతి|peace|విశ్రాంతి|rest/.test(t)) return 'peace';
+            if (/జీవ|life|నిత్య|eternal|రక్షణ|salvation/.test(t)) return 'life';
+            return 'general';
+        }
+
+        function _aiBuildReflection(verse, ref, theme) {
+            // Inclusive narrative: speaks to everyone including the reader (మనం / మనలను / నేను / మీరు)
+            // No "ఈ వాక్యం (ref)" prefix, no stiff formula
+            const pools = {
+                love: [
+                    [
+                        'దేవుని ప్రేమ మనలను — నన్ను, మిమ్మల్ని, ప్రతి ఒక్కరినీ — ఎన్నడూ వదలదు. ఆయన ప్రేమలో మనం సురక్షితంగా ఉన్నాము.',
+                        'ఈ ప్రేమను అనుభవించినప్పుడు మన హృదయాలు మారి, చుట్టూ ఉన్నవారిపై కూడా కరుణ చూపుతాయి.',
+                        'నేడు మనం ఆ ప్రేమను స్వీకరించి, ఒకరికొకరు చూపిద్దాం.'
+                    ],
+                    [
+                        'ప్రేమ కేవలం భావం కాదు — అది దేవుని స్వభావం. ఆయన మనలను ముందుగా ప్రేమించాడు.',
+                        'ఆ ప్రేమలో నిలిచి ఉండడం ద్వారా మనం — నేను, మీరు, అందరం — నిజమైన సంతృప్తిని పొందుతాము.',
+                        'ఈ రోజు ఆయన ప్రేమను గుర్తు చేసుకొని, దానిలో కలిసి నడుద్దాం.'
+                    ]
+                ],
+                courage: [
+                    [
+                        'భయం మనలను నిలిపివేస్తుంది, కానీ దేవుడు మనకు — నాకు, మీకు, ప్రతి ఒక్కరికీ — తోడుగా ఉన్నాడు.',
+                        'ఆయన ఉన్నప్పుడు మనం ఏ సవాలునైనా ఎదుర్కోగలం. ఆయన బలం మన బలహీనతలో కనిపిస్తుంది.',
+                        'నేడు మన భయాలను ఆయనకు అప్పగించి, ధైర్యంతో కలిసి ముందుకు సాగుదాం.'
+                    ],
+                    [
+                        'కష్టాల మధ్య కూడా దేవుడు మనతో ఉన్నాడు. ఆయన మనలను వదలడు.',
+                        'భయం స్థానంలో ఆయన ధైర్యాన్ని ఉంచుదాం. ఆయనే మన కోట.',
+                        'ఈ రోజు ఆయన వాగ్దానాన్ని పట్టుకొని, నమ్మకంతో నడుద్దాం — నేను, మీరు, అందరం.'
+                    ]
+                ],
+                faith: [
+                    [
+                        'దేవుని నమ్మడం అంటే మన స్వంత అర్థం కంటే ఆయన మార్గాన్ని ఎంచుకోవడం.',
+                        'విశ్వాసం కళ్ళకు కనిపించని వాటిని నమ్మడం. ఆయన మన త్రోవలను సరళం చేస్తాడు.',
+                        'నేడు మనం పూర్ణ హృదయంతో ఆయనను నమ్మి, ఆయన నడిపింపును కలిసి అనుసరిద్దాం.'
+                    ],
+                    [
+                        'విశ్వాసం లేకుండా దేవునికి ఇష్టం కాదు. ఆయనపై నమ్మకం ఉంచినప్పుడు ఆయన కార్యం చేస్తాడు.',
+                        'మన పరిస్థితులు మారినా ఆయన నమ్మకమైనవాడు — నాకు, మీకు, అందరికీ.',
+                        'ఈ రోజు మన నమ్మకాన్ని ఆయనపై ఉంచి, ఆయన వాగ్దానాలను కలిసి అనుభవిద్దాం.'
+                    ]
+                ],
+                prayer: [
+                    [
+                        'ప్రార్థన అనేది దేవునితో సంభాషణ. ఆయన మన మనవులను — నా, మీ, ప్రతి ఒక్కరి — వింటాడు.',
+                        'నిజమైన ప్రార్థన హృదయం నుండి వస్తుంది. ఆయన సమయోచితంగా సమాధానమిస్తాడు.',
+                        'నేడు మన అవసరాలను ఆయన ముందు ఉంచి, నమ్మకంతో కలిసి వేచి ఉందాం.'
+                    ],
+                    [
+                        'ప్రార్థనలో తాలిమి ఉండాలి. దేవుడు మనకు ఉత్తమమైనది ఇస్తాడు.',
+                        'ఆయన సమక్షంలో నిలిచి ఉండడం మన శక్తిని పునరుద్ధరిస్తుంది.',
+                        'ఈ రోజు మనం ప్రార్థనలో సమయం గడపుదాం — ఆయన మనలను వింటున్నాడు.'
+                    ]
+                ],
+                word: [
+                    [
+                        'దేవుని వాక్యం మన పాదాలకు దీపం, మార్గానికి వెలుగు.',
+                        'చీకటి మార్గాల్లో కూడా ఆయన మాట మనలను — నన్ను, మిమ్మల్ని — సరిగా నడిపిస్తుంది.',
+                        'నేడు మనం వాక్యాన్ని ధ్యానించి, దాని ప్రకారం నడుద్దాం — అప్పుడు మన దారి స్పష్టమవుతుంది.'
+                    ],
+                    [
+                        'బైబిల్ కేవలం పుస్తకం కాదు — అది జీవం గల దేవుని మాట.',
+                        'ఆయన వాక్యం మన హృదయాలను శుద్ధి చేసి, ఆలోచనలను మారుస్తుంది.',
+                        'ఈ రోజు మనం ఒక వాక్యాన్ని హృదయంలో నాటుకొని, దానిని కలిసి ఆచరిద్దాం.'
+                    ]
+                ],
+                shepherd: [
+                    [
+                        'యెహోవా మన కాపరి. ఆయన మనలను నడిపిస్తాడు, కాపాడుతాడు, పోషిస్తాడు.',
+                        'ఆయన ఉన్నప్పుడు మనకు — నాకు, మీకు, అందరికీ — ఏమీ లోటు లేదు. ఆయన మన అవసరాలను తెలుసు.',
+                        'నేడు మన కాపరిని నమ్మి, ఆయన నడిపింపులో కలిసి విశ్రాంతి తీసుకుందాం.'
+                    ],
+                    [
+                        'కాపరి తన గొర్రెలను ఎన్నడూ వదలడు. అలాగే దేవుడు మనలను వదలడు.',
+                        'ఆయన మనలను పచ్చికబయళ్లలో పంపి, నిశ్శబ్ద జలాల దగ్గరికి నడిపిస్తాడు.',
+                        'ఈ రోజు మనం ఆయన సంరక్షణలో ఉన్నామని గుర్తు చేసుకొని, ధైర్యంగా ఉందాం.'
+                    ]
+                ],
+                hope: [
+                    [
+                        'దేవునికి మనపై మంచి ప్రణాళిక ఉంది — శాంతి, భవిష్యత్తు, నిరీక్షణ ఇచ్చేది.',
+                        'కష్టాలు వచ్చినా ఆయన వాగ్దానాలు నిలుస్తాయి. ఆయన మనలను విడిచిపెట్టడు.',
+                        'నేడు మనం నిరీక్షణను పట్టుకొని, ఆయన మంచి ప్రణాళికను కలిసి నమ్ముదాం.'
+                    ],
+                    [
+                        'నిరీక్షణ లేని జీవితం చీకటిగా ఉంటుంది. కానీ దేవునిలో నిజమైన నిరీక్షణ ఉంది.',
+                        'ఆయన మన భవిష్యత్తును తెలుసు, ఆయనే దానిని రూపొందిస్తాడు — నా, మీ, ప్రతి ఒక్కరి.',
+                        'ఈ రోజు మన నిరీక్షణను ఆయనపై ఉంచి, ఆనందంతో కలిసి ముందుకు సాగుదాం.'
+                    ]
+                ],
+                grace: [
+                    [
+                        'దేవుని కృప మన అర్హతకు దూరంగా ఉంది. ఆయన కరుణ మనపై — నాపై, మీపై, అందరిపై — నిండుగా ఉంది.',
+                        'మన బలహీనతలో కూడా ఆయన కృప సరిపోతుంది. ఆయన మనలను క్షమిస్తాడు.',
+                        'నేడు మనం ఆ కృపను స్వీకరించి, ఒకరికొకరు క్షమాపణ చూపిద్దాం.'
+                    ],
+                    [
+                        'కృప అనేది పొందదగినది కాదు — అది దేవుని బహుమానం.',
+                        'ఆయన కృపలో మనం నిలిచి ఉన్నప్పుడు, మన జీవితం మారుతుంది.',
+                        'ఈ రోజు మనం ఆయన కృపను గుర్తు చేసుకొని, కృతజ్ఞతతో కలిసి జీవిద్దాం.'
+                    ]
+                ],
+                peace: [
+                    [
+                        'ప్రపంచం ఇవ్వలేని శాంతిని క్రీస్తు మనకు ఇస్తాడు.',
+                        'ఆయన సమక్షంలో నిలిచి ఉండడం ద్వారా మన హృదయాలు — నా, మీ, అందరి — ప్రశాంతమవుతాయి.',
+                        'నేడు మన ఆందోళనలను ఆయనకు అప్పగించి, ఆయన శాంతిని కలిసి అనుభవిద్దాం.'
+                    ],
+                    [
+                        'శాంతి అనేది పరిస్థితులపై ఆధారపడదు — అది దేవునితో సంబంధంపై ఆధారపడుతుంది.',
+                        'ఆయన మన మనస్సులను కాపాడి, హృదయాలను స్థిరపరుస్తాడు.',
+                        'ఈ రోజు మనం ఆయన శాంతిలో కలిసి విశ్రాంతి తీసుకుందాం.'
+                    ]
+                ],
+                life: [
+                    [
+                        'క్రీస్తులో ఉండటం అంటే క్రొత్త జీవితాన్ని పొందడం. పాతవి పోయాయి, సమస్తం క్రొత్తగా మారింది.',
+                        'నిత్యజీవం ఆయనలో ఉంది. ఆయనను విశ్వసించినవాడు నశించడు — నేను, మీరు, అందరం.',
+                        'నేడు మనం ఆ క్రొత్త జీవితాన్ని ఆలింగనం చేసుకొని, ఆయనలో కలిసి నడుద్దాం.'
+                    ],
+                    [
+                        'దేవుడు మనకు నిత్యజీవాన్ని ఇచ్చాడు. అది కేవలం భవిష్యత్తు కాదు — ఇప్పుడే మొదలవుతుంది.',
+                        'ఆయనలో జీవించడం ద్వారా మనం నిజమైన అర్థాన్ని కనుగొంటాము.',
+                        'ఈ రోజు మనం ఆయన జీవాన్ని స్వీకరించి, దానిలో కలిసి సంతోషిద్దాం.'
+                    ]
+                ],
+                general: [
+                    [
+                        'దేవుని మాట మన జీవితానికి మార్గదర్శకం. ఆయన సత్యం మనలను స్వేచ్ఛగా చేస్తుంది.',
+                        'ఆయన చిత్తం మనకు మేలైనది. ఆయనను అనుసరించినప్పుడు మనం ఆశీర్వదించబడతాము.',
+                        'నేడు మనం ఆయన సత్యాన్ని హృదయంలో నాటుకొని, దాని ప్రకారం కలిసి జీవిద్దాం.'
+                    ],
+                    [
+                        'బైబిల్ మనకు దేవుని హృదయాన్ని చూపిస్తుంది. ఆయన మనలను ప్రేమించి, నడిపించాలని కోరుకుంటాడు.',
+                        'ఆయన మాటలు మనలను — నన్ను, మిమ్మల్ని, ప్రతి ఒక్కరినీ — మార్చి, బలపరుస్తాయి.',
+                        'ఈ రోజు మనం ఆయన మాటను విని, దానిని ఆచరిద్దాం — అప్పుడు మన జీవితం ఫలవంతమవుతుంది.'
+                    ]
+                ]
+            };
+            const variants = pools[theme] || pools.general;
+            const pick = variants[Math.floor(Math.random() * variants.length)];
+            return pick.join(' ');
+        }
+
+        function _aiBuildPrayer(theme) {
+            const cores = {
+                love: [
+                    'నీ ప్రేమను నా హృదయంలో నింపి, ఇతరులకు చూపించేలా సహాయం చేయి',
+                    'నీ అపరిమిత ప్రేమను నేను అనుభవించేలా చేయి, దానిలో నన్ను నడిపించు'
+                ],
+                courage: [
+                    'నా భయాలను తొలగించి, నీ ధైర్యంతో నన్ను నింపు',
+                    'నీ తోడుతో నేను ధైర్యంగా నడిచేలా చేయి, నా బలహీనతలో నీ బలం కనిపించనివ్వు'
+                ],
+                faith: [
+                    'నీపై నా విశ్వాసాన్ని బలపరచి, నీ మార్గంలో నడిపించు',
+                    'పూర్ణ హృదయంతో నిన్ను నమ్మేలా చేయి, నా త్రోవలను సరళం చేయి'
+                ],
+                prayer: [
+                    'నా ప్రార్థనలను విని, నీ చిత్తం ప్రకారం సమాధానమివ్వు',
+                    'ప్రార్థనలో నన్ను నిలిపి, నీ సమక్షంలో విశ్రాంతి ఇవ్వు'
+                ],
+                word: [
+                    'నీ వాక్యం నా పాదాలకు దీపంగా ఉండనివ్వు',
+                    'నీ మాటను నా హృదయంలో నాటి, దాని ప్రకారం నడిపించు'
+                ],
+                shepherd: [
+                    'నా కాపరిగా నన్ను నడిపించి, కాపాడు',
+                    'నీ సంరక్షణలో నన్ను ఉంచి, నా అవసరాలను తీర్చు'
+                ],
+                hope: [
+                    'నాకు నిరీక్షణ మరియు శాంతిని ఇవ్వు',
+                    'నీ మంచి ప్రణాళికను నమ్మేలా చేయి, నా భవిష్యత్తును నీ చేతుల్లో ఉంచు'
+                ],
+                grace: [
+                    'నీ కృపను నాపై కుమ్మరించు',
+                    'నీ కరుణను నేను అనుభవించేలా చేయి, క్షమాపణలో నన్ను నడిపించు'
+                ],
+                peace: [
+                    'నీ శాంతిని నా హృదయంలో నింపు',
+                    'నా ఆందోళనలను తీసివేసి, నీ ప్రశాంతతను ఇవ్వు'
+                ],
+                life: [
+                    'నీలో నిత్యజీవాన్ని అనుభవించేలా చేయి',
+                    'క్రొత్త జీవితంలో నన్ను నడిపించి, నీలో సంతోషపరచు'
+                ],
+                general: [
+                    'నీ సత్యం ద్వారా నన్ను నడిపించి, నీ చిత్తం నెరవేర్చు',
+                    'నీ మాటను వినేలా చేయి, దాని ప్రకారం జీవించేలా సహాయం చేయి'
+                ]
+            };
+            const list = cores[theme] || cores.general;
+            const core = list[Math.floor(Math.random() * list.length)];
+            return `ప్రభువా, ${core}. యేసు నామములో ప్రార్థిస్తున్నాను తండ్రి - ఆమెన్.`;
+        }
+
+        function generateAIDevotion(opts) {
+            opts = opts || {};
+            const dateKey = formatDateKey(currentDate);
+            let devotion = devotionMap[dateKey] || getCurrentDevotion() || {};
+            const verse = (opts.verse != null ? opts.verse : (document.getElementById('edit-verse') ? document.getElementById('edit-verse').value : devotion.verse)) || '';
+            const verseRef = (opts.verseRef != null ? opts.verseRef : (document.getElementById('edit-verseRef') ? document.getElementById('edit-verseRef').value : devotion.verseRef)) || '';
+
+            if (!verse.trim()) {
+                showToast('ముందుగా వాక్యం ఉండాలి');
+                return;
+            }
+
+            showToast('✨ AI ధ్యానం తయారవుతోంది…');
+
+            // Simulate brief “thinking” so the UI feels responsive
+            setTimeout(function () {
+                const theme = _aiKeywordTheme(verse, verseRef);
+                const content = _aiBuildReflection(verse, verseRef, theme);
+                const prayer = _aiBuildPrayer(theme);
+                const title = 'బైబిల్ ఆధారిత ధ్యానం';
+
+                if (editMode) {
+                    const cEl = document.getElementById('edit-content');
+                    const pEl = document.getElementById('edit-prayer');
+                    const tEl = document.getElementById('edit-title');
+                    if (cEl) cEl.value = content;
+                    if (pEl) pEl.value = prayer;
+                    if (tEl) tEl.value = title;
+                    showToast('✅ AI ధ్యానం & ప్రార్థన నింపబడింది — Save చేయండి');
+                } else {
+                    devotion = Object.assign({}, devotion, {
+                        date: dateKey,
+                        verse: verse,
+                        verseRef: verseRef,
+                        title: title,
+                        content: content,
+                        prayer: prayer
+                    });
+                    devotionMap[dateKey] = devotion;
+                    saveDevotions();
+                    render();
+                    showToast('✅ AI ధ్యానం & ప్రార్థన సిద్ధం');
+                }
+            }, 450);
+        }
+
+        // ========================================================================
         //  BACKUP / RESTORE
         // ========================================================================
 
@@ -2583,6 +2944,7 @@
                         </div>
                     </div>
                     <div class="edit-actions justify-center">
+                        <button onclick="generateAIDevotion()" class="btn btn-warn text-sm" title="Generate biblical reflection &amp; prayer from the verse">✨ AI Generate</button>
                         <button onclick="saveAllEdits(); toggleEditMode();" class="btn btn-success text-sm">💾 Save &amp; Exit</button>
                         <button onclick="toggleEditMode(); render();" class="btn btn-secondary text-sm">Cancel</button>
                     </div>
@@ -2630,6 +2992,9 @@
                         </button>
                         <button onclick="copyDevotion()" class="btn btn-secondary text-sm">
                             <span>📋</span> Copy
+                        </button>
+                        <button onclick="generateAIDevotion()" class="btn btn-warn text-sm" title="Generate 2-3 line biblical reflection &amp; 1-line prayer from the verse">
+                            <span>✨</span> AI
                         </button>
                         <button onclick="goToToday()" class="btn btn-primary text-sm">
                             <span>📅</span> Today
@@ -2900,7 +3265,7 @@
 
         const D = {
             show: Object.assign({}, DESIGN_TEMPLATES[0].show),
-            sentBy: '', note: '', credit: 'సహో: నవిన్ కుమార్', showCredit: true, qrText: '', lang: 'te', qr: false,
+            sentBy: '', note: '', credit: 'మీ సహో: నవీన్ కుమార్', showCredit: true, qrText: '', lang: 'te', qr: false,
             scale: 1, lineHeight: 1, sectionGap: 1, align: 'auto',
             textMode: 'auto', customText: '#ffffff', accentColor: '#fcd34d', useAccentColor: false,
             bg: 'indigo', bgMode: 'preset', custom: { c1: '#4f46e5', c2: '#7c3aed', angle: 135 },
